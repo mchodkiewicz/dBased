@@ -12,7 +12,7 @@ struct ThermalEllispoid {
     bool defined = false;
 };
 
-
+// commnet
 class CrystalStructure
 {
 public:
