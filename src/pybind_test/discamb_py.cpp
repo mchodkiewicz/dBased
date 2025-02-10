@@ -161,6 +161,11 @@ PYBIND11_MODULE(discamb_py, m) {
     m.def("calc_sf", &calc_sf, "calc sf");
     m.def("discamb_add", &discamb_add, "discamb_add");
 
+    pybind11::enum_<PackInlcudeMode>(m, "PackInlcudeMode")
+        .value("ATOM", PackInlcudeMode::ATOM)
+        .value("MOLECULE_ATOM", PackInlcudeMode::MOLECULE_ATOM)
+        .value("MOLECULE_CENTER", PackInlcudeMode::MOLECULE_CENTER)
+        .export_values();
 
     pybind11::class_<CrystalStructure>(m, "CrystalStructure")
         .def(pybind11::init<const std::string&>())
@@ -172,10 +177,14 @@ PYBIND11_MODULE(discamb_py, m) {
         .def("getBonds", pybind11::overload_cast<const std::vector<std::vector<int> > &> (&CrystalStructure::getBonds, pybind11::const_))
         //.def("getBonds2", &CrystalStructure::getBonds2)
         .def("getGrouppedAsymetricUnitBondedAtoms", &CrystalStructure::getGrouppedAsymetricUnitBondedAtoms)
+        .def("getIncludedAtoms", &CrystalStructure::getIncludedAtoms)
         .def("atomicNumber", &CrystalStructure::atomicNumber)
         .def("getSymmetryOperationStr", &CrystalStructure::getSymmetryOperationStr)
         .def("getAtomLabel", &CrystalStructure::getAtomLabel)
         .def("getAtomPositionCart", &CrystalStructure::getAtomPositionCart)
-        .def("getThermalEllipsoid", &CrystalStructure::getThermalEllipsoid);
+        .def("getThermalEllipsoid", &CrystalStructure::getThermalEllipsoid)
+        .def("getUnitCellVectors", &CrystalStructure::getUnitCellVectors)
+        .def("getNeighboringAtoms",&CrystalStructure::getNeighboringAtoms);
+
 }
 
