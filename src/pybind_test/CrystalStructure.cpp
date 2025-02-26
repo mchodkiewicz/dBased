@@ -5,7 +5,10 @@
 #include "discamb/CrystalStructure/UnitCellContent.h"
 #include "discamb/MathUtilities/algebra3d.h"
 #include "discamb/MathUtilities/geometry3d.h"
+#include "discamb/MathUtilities/graph_algorithms.h"
 #include "discamb/StructuralProperties/structural_properties.h"
+
+#include <set>
 
 using namespace std;
 using namespace discamb;
@@ -126,6 +129,22 @@ const
         symbols.push_back(periodic_table::symbol(z[idx]));
     }
     return symbols;
+}
+
+double CrystalStructure::getDistance(
+    const std::vector<int>& atom1,
+    const std::vector<int>& atom2)
+    const
+{
+    UnitCellContent::AtomID a1(atom1[0], Vector3i(atom1[1], atom1[2], atom1[3]));
+    UnitCellContent::AtomID a2(atom2[0], Vector3i(atom2[1], atom2[2], atom2[3]));
+    int a1_idx = mUnitCellContent.indexOfSymmetryEquivalentAtomInCrystal(a1.atomIndex);
+    int a2_idx = mUnitCellContent.indexOfSymmetryEquivalentAtomInCrystal(a2.atomIndex);
+    string label, symmOp1, symmOp2;
+    mUnitCellContent.interpreteAtomID(a1, label, symmOp1);
+    mUnitCellContent.interpreteAtomID(a2, label, symmOp2);
+    
+    return structural_properties::interatomicDistance(mUnitCellContent.getCrystal(), a1_idx, a2_idx, symmOp1, symmOp2);
 }
 
 vector<string> CrystalStructure::getAtomNames()
@@ -294,6 +313,48 @@ void CrystalStructure::setMolecules()
 
 
 
+}
+
+std::vector<std::vector<int> > CrystalStructure::groupIntoChemicalUnits(
+    const std::vector<std::vector<int> >& atomIds)
+    const
+{
+    vector<vector<int> > connectivity, neighboursIds, chemicalUnits;
+    for (auto const& atomId : atomIds)
+    {
+        connectivity.resize(connectivity.size() + 1);
+        vector<int> neighbourId;
+        UnitCellContent::AtomID id(atomId[0], Vector3i(atomId[1], atomId[2], atomId[3]));
+        for (auto const& neighbour : mUnitCellConnectivity[id.atomIndex])
+        {
+            neighbourId = {
+                neighbour.atomIndex,
+                neighbour.unitCellPosition[0] + atomId[1],
+                neighbour.unitCellPosition[1] + atomId[2],
+                neighbour.unitCellPosition[2] + atomId[3] };
+            auto const& it = find(atomIds.begin(), atomIds.end(), neighbourId);
+            if (it != atomIds.end())
+                connectivity.back().push_back(distance(atomIds.begin(), it));
+        }
+    }
+    discamb::graph_algorithms::split(connectivity, chemicalUnits);
+    return chemicalUnits;
+}
+
+std::vector< std::vector<std::vector<int> > >  CrystalStructure::splitIntoChemicalUnits(
+    const std::vector<std::vector<int> >& atomIds)
+    const
+{
+    vector<vector<int> > chemicalUnits = groupIntoChemicalUnits(atomIds);
+    int nChemicalUnits = chemicalUnits.size();
+    vector< vector<vector<int> > > chemicalUnitsAtomIds(nChemicalUnits);
+    for (int i = 0; i < nChemicalUnits; i++)
+    {
+        int nAtoms = chemicalUnits[i].size();
+        for (int atomIdx = 0; atomIdx < nAtoms; atomIdx++)
+            chemicalUnitsAtomIds[i].push_back(atomIds[chemicalUnits[i][atomIdx]]);
+    }
+    return chemicalUnitsAtomIds;
 }
 
 std::vector<std::vector<int> > CrystalStructure::getNeighboringAtoms(

@@ -184,7 +184,10 @@ PYBIND11_MODULE(discamb_py, m) {
         .def("getAtomPositionCart", &CrystalStructure::getAtomPositionCart)
         .def("getThermalEllipsoid", &CrystalStructure::getThermalEllipsoid)
         .def("getUnitCellVectors", &CrystalStructure::getUnitCellVectors)
-        .def("getNeighboringAtoms",&CrystalStructure::getNeighboringAtoms);
+        .def("getNeighboringAtoms",&CrystalStructure::getNeighboringAtoms)
+        .def("splitIntoChemicalUnits", &CrystalStructure::splitIntoChemicalUnits)
+        .def("getDistance",&CrystalStructure::getDistance)
+        .def("groupIntoChemicalUnits",&CrystalStructure::groupIntoChemicalUnits);
 
 }
 

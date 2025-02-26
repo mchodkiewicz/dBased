@@ -31,7 +31,9 @@ public:
     std::vector<std::vector<double> > getPositions() const;
     std::vector<std::vector<double> > getAdps() const;
     std::vector<int> getBonds() const;
-    std::vector<std::pair<int,int> > getBonds(const std::vector<std::vector<int> > &atomIds) const;
+    std::vector<std::pair<int,int> > getBonds(const std::vector<std::vector<int> > &atomIds) const; 
+    std::vector< std::vector<std::vector<int> > > splitIntoChemicalUnits(const std::vector<std::vector<int> >& atomIds) const;
+    std::vector<std::vector<int> > groupIntoChemicalUnits(const std::vector<std::vector<int> >& atomIds) const;
     std::vector<std::vector<int> > getAsymetricUnitBondedAtoms() const;
     std::vector< std::vector<std::vector<int> > > getGrouppedAsymetricUnitBondedAtoms() const;
     std::vector<std::vector<int> > getAsymetricUnitAtoms() const;
@@ -55,6 +57,7 @@ public:
         std::vector<std::vector<int> > const& atoms, 
         double range, 
         bool includeAllAtomsInIncludingMolecule = true);
+    double getDistance(const std::vector<int>& atom1, const std::vector<int>& atom2) const;
     
     
 private:
