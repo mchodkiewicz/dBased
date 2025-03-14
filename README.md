@@ -1,4 +1,4 @@
-Example config command on Windows:
+Example config command on Windows:  
 SET CMAKE_BUILD_PARALLEL_LEVEL=4
 cmake ../../../dBased/dBased -G "Visual Studio 17 2022" -A x64^
     -DDISCAMB_LIB_PATH="d:/programowanie/biblioteki/discamb/discamb-project/DiSCaMB/vs2022/lib"^
