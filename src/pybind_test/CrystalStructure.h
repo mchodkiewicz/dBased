@@ -57,6 +57,9 @@ public:
         std::vector<std::vector<int> > const& atoms, 
         double range, 
         bool includeAllAtomsInIncludingMolecule = true);
+
+    std::vector<std::vector<int> > getBondedAtoms(std::vector<int> const& atom) const;
+
     double getDistance(const std::vector<int>& atom1, const std::vector<int>& atom2) const;
     
     

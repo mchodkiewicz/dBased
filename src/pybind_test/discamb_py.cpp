@@ -173,6 +173,7 @@ PYBIND11_MODULE(discamb_py, m) {
         .def("getPositions", &CrystalStructure::getPositions)
         .def("getAdps", &CrystalStructure::getAdps)
         .def("getAtomSymbols", &CrystalStructure::getAtomSymbols)
+        .def("getBondedAtoms", &CrystalStructure::getBondedAtoms)
         .def("getBonds", pybind11::overload_cast<void> (&CrystalStructure::getBonds, pybind11::const_))
         .def("getBonds", pybind11::overload_cast<const std::vector<std::vector<int> > &> (&CrystalStructure::getBonds, pybind11::const_))
         //.def("getBonds2", &CrystalStructure::getBonds2)

@@ -356,6 +356,29 @@ std::vector< std::vector<std::vector<int> > >  CrystalStructure::splitIntoChemic
     }
     return chemicalUnitsAtomIds;
 }
+/**
+ * @brief Get the atoms bonded to the specified atom.
+ *
+ * @param atom The atom specified by a vector of integers.
+ * @return std::vector<std::vector<int>> The atoms bonded to the specified atom.
+ */
+std::vector<std::vector<int> > CrystalStructure::getBondedAtoms(
+    std::vector<int> const& atom)
+const
+{
+    auto neighbours = mUnitCellConnectivity[atom[0]];
+    vector<vector<int> > bondedAtoms;
+    for (auto const& neighbour : neighbours)
+    {
+        vector<int> atomId = { neighbour.atomIndex, neighbour.unitCellPosition[0], neighbour.unitCellPosition[1], neighbour.unitCellPosition[2] };
+        atomId[1] += atom[1];
+        atomId[2] += atom[2];
+        atomId[3] += atom[3];
+        bondedAtoms.push_back(atomId);
+    }
+    
+    return bondedAtoms;
+}
 
 std::vector<std::vector<int> > CrystalStructure::getNeighboringAtoms(
     std::vector<std::vector<int> > const& atoms,
