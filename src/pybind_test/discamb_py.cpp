@@ -3,6 +3,8 @@
 
 #include "CrystalStructure.h"
 
+#include "har_utilities.h"
+
 #include "discamb/AtomTyping/CrystalAtomTypeAssigner.h"
 #include "discamb/AtomTyping/LocalCoordinateSystemCalculator.h"
 
@@ -160,7 +162,7 @@ PYBIND11_MODULE(discamb_py, m) {
 
     m.def("calc_sf", &calc_sf, "calc sf");
     m.def("discamb_add", &discamb_add, "discamb_add");
-
+    m.def("find_default_representatives", &har_utilities::find_default_representatives);
     pybind11::enum_<PackInlcudeMode>(m, "PackInlcudeMode")
         .value("ATOM", PackInlcudeMode::ATOM)
         .value("MOLECULE_ATOM", PackInlcudeMode::MOLECULE_ATOM)
@@ -182,13 +184,15 @@ PYBIND11_MODULE(discamb_py, m) {
         .def("atomicNumber", &CrystalStructure::atomicNumber)
         .def("getSymmetryOperationStr", &CrystalStructure::getSymmetryOperationStr)
         .def("getAtomLabel", &CrystalStructure::getAtomLabel)
+        .def("getAsymetricUnitAtoms", &CrystalStructure::getAsymetricUnitAtoms)
         .def("getAtomPositionCart", &CrystalStructure::getAtomPositionCart)
         .def("getThermalEllipsoid", &CrystalStructure::getThermalEllipsoid)
         .def("getUnitCellVectors", &CrystalStructure::getUnitCellVectors)
         .def("getNeighboringAtoms",&CrystalStructure::getNeighboringAtoms)
         .def("splitIntoChemicalUnits", &CrystalStructure::splitIntoChemicalUnits)
         .def("getDistance",&CrystalStructure::getDistance)
-        .def("groupIntoChemicalUnits",&CrystalStructure::groupIntoChemicalUnits);
+        .def("groupIntoChemicalUnits",&CrystalStructure::groupIntoChemicalUnits)
+        .def("numberOfAtoms", &CrystalStructure::numberOfAtoms);
 
 }
 

@@ -25,7 +25,7 @@ public:
     CrystalStructure();
     CrystalStructure(const std::string &fileName);
     
-
+    int numberOfAtoms() const;
     std::vector<std::string> getAtomNames() const;
     std::vector<std::string> getAtomSymbols() const;
     std::vector<std::vector<double> > getPositions() const;

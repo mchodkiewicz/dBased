@@ -393,13 +393,37 @@ std::vector<std::vector<int> > CrystalStructure::getNeighboringAtoms(
         centralPart.push_back(UnitCellContent::AtomID(atom[0], Vector3i(atom[1], atom[2], atom[3])));
 
     vector<UnitCellContent::AtomID> clusterAtoms; 
-    structural_properties::makeCluster(mUnitCellContent, centralPart, mMolecules, clusterAtoms, range, false);
+    if(includeAllAtomsInIncludingMolecule)
+        structural_properties::makeCluster(mUnitCellContent, centralPart, mMolecules, clusterAtoms, range, false);
+    else
+        structural_properties::makeAtomsCluster(mUnitCellContent, centralPart, clusterAtoms, range, false);
     
     for (auto& atom : clusterAtoms)
         cluster.push_back({ atom.atomIndex, atom.unitCellPosition[0], atom.unitCellPosition[1], atom.unitCellPosition[2] });
     return cluster;
+
+
 }
 
+int CrystalStructure::numberOfAtoms() const
+{
+    return mUnitCellContent.getCrystal().atoms.size();
+}
+
+vector<vector<int> > CrystalStructure::getAsymetricUnitAtoms()
+const
+{
+    vector<vector<int> > atoms;
+
+    int nAtoms = mUnitCellContent.getCrystal().atoms.size();
+    for (auto const &atom: mUnitCellContent.getCrystal().atoms)
+    {
+        UnitCellContent::AtomID atomId;
+        mUnitCellContent.findAtom(atom.label, "x,y,z", atomId);
+        atoms.push_back({atomId.atomIndex, atomId.unitCellPosition[0], atomId.unitCellPosition[1], atomId.unitCellPosition[2]});
+    }
+    return atoms;
+}
 
 std::vector< std::vector<std::vector<int> > > CrystalStructure::getGrouppedAsymetricUnitBondedAtoms()
 const

@@ -1,7 +1,14 @@
-
+#include "discamb/Scattering/HirshfeldAtomModelSettings.h"
 
 namespace har_utilities {
 
-    void find_default_representatives();
+    struct Representatives {
+
+        int substructureIdx;
+        int atomIdx;
+        double weight;
+    };
+
+    void find_default_representatives(const std::vector<std::vector<int> >& fragments);
 
 }
