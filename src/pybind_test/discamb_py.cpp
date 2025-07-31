@@ -160,6 +160,11 @@ double discamb_add(double a, double b)
 PYBIND11_MODULE(discamb_py, m) {
     m.doc() = "DiSCaMB bindings"; // optional module docstring
 
+    pybind11::class_<har_utilities::Representative>(m, "Representatives")
+        .def_readwrite("substructureIdx", &har_utilities::Representative::substructureIdx)
+        .def_readwrite("atomIdx", &har_utilities::Representative::atomIdx)
+        .def_readwrite("weight", &har_utilities::Representative::weight);
+
     m.def("calc_sf", &calc_sf, "calc sf");
     m.def("discamb_add", &discamb_add, "discamb_add");
     m.def("find_default_representatives", &har_utilities::find_default_representatives);

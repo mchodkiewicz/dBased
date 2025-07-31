@@ -61,8 +61,8 @@ public:
     std::vector<std::vector<int> > getBondedAtoms(std::vector<int> const& atom) const;
 
     double getDistance(const std::vector<int>& atom1, const std::vector<int>& atom2) const;
-    
-    
+    const discamb::Crystal& getCrystal() const;
+    const discamb::UnitCellContent getUnitCellContent() const;
 private:
     discamb::UnitCellContent mUnitCellContent;
     std::vector<discamb::UnitCellContent::AtomID> mAtoms;

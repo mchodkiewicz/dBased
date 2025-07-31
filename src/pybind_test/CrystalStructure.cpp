@@ -341,6 +341,18 @@ std::vector<std::vector<int> > CrystalStructure::groupIntoChemicalUnits(
     return chemicalUnits;
 }
 
+const discamb::Crystal& CrystalStructure::getCrystal()
+const
+{
+    return mUnitCellContent.getCrystal();
+}
+
+const discamb::UnitCellContent CrystalStructure::getUnitCellContent()
+const
+{
+    return mUnitCellContent;
+}
+
 std::vector< std::vector<std::vector<int> > >  CrystalStructure::splitIntoChemicalUnits(
     const std::vector<std::vector<int> >& atomIds)
     const
