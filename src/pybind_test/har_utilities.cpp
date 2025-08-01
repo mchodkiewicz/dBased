@@ -26,8 +26,10 @@ namespace har_utilities {
                     string label, symmOpStr;
                     crystal_structure.getUnitCellContent().interpreteAtomID(atomId, label, symmOpStr);
                     subsystemAtoms[fragIdx].push_back({ label, symmOpStr });
+                    cout << "har_utilities.cpp line " << __LINE__ << " " << subsystemAtoms[fragIdx].back().first << " " << subsystemAtoms[fragIdx].back().second << endl;
                 }
             }
+
             vector<vector<discamb::AtomRepresentativeInfo> > reps;
             discamb::gar_utilities::findDefaultRepresentatives(
                 crystal_structure.getCrystal(), 
@@ -41,6 +43,7 @@ namespace har_utilities {
                     representative.atomIdx = atomIdx;
                     representative.substructureIdx = rep.fragmentIdx;
                     representative.weight = rep.fixedWeightValue;
+                    cout << "representative.weight = " << representative.weight << endl;
                     rerpresenataives.push_back(representative);
                 }
             }
