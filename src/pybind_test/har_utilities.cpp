@@ -40,7 +40,7 @@ namespace har_utilities {
                 for (auto& rep : reps[atomIdx])
                 {
                     Representative representative;
-                    representative.atomIdx = atomIdx;
+                    representative.atomIdx = rep.idxInSubsystem;
                     representative.substructureIdx = rep.fragmentIdx;
                     representative.weight = rep.fixedWeightValue;
                     cout << "representative.weight = " << representative.weight << endl;
