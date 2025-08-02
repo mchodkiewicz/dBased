@@ -12,9 +12,6 @@ namespace har_utilities {
         const std::vector<std::vector<std::vector<int> > >& fragments)
         {
             std::vector<Representative> rerpresenataives;
-            //rerpresenataives.push_back({ 1, 2, 0.23 });
-            //rerpresenataives.push_back({ 5, 4, 0.12 });
-            //return rerpresenataives;
 
             int nFragments = fragments.size();
             vector<vector<pair<string, string> > > subsystemAtoms(nFragments);
@@ -26,7 +23,6 @@ namespace har_utilities {
                     string label, symmOpStr;
                     crystal_structure.getUnitCellContent().interpreteAtomID(atomId, label, symmOpStr);
                     subsystemAtoms[fragIdx].push_back({ label, symmOpStr });
-                    cout << "har_utilities.cpp line " << __LINE__ << " " << subsystemAtoms[fragIdx].back().first << " " << subsystemAtoms[fragIdx].back().second << endl;
                 }
             }
 
@@ -34,7 +30,8 @@ namespace har_utilities {
             discamb::gar_utilities::findDefaultRepresentatives(
                 crystal_structure.getCrystal(), 
                 subsystemAtoms,
-                reps);
+                reps,
+                false);
             for (int atomIdx=0; atomIdx< reps.size(); atomIdx++)
             {
                 for (auto& rep : reps[atomIdx])
@@ -43,7 +40,6 @@ namespace har_utilities {
                     representative.atomIdx = rep.idxInSubsystem;
                     representative.substructureIdx = rep.fragmentIdx;
                     representative.weight = rep.fixedWeightValue;
-                    cout << "representative.weight = " << representative.weight << endl;
                     rerpresenataives.push_back(representative);
                 }
             }
