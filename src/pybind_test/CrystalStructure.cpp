@@ -411,7 +411,11 @@ std::vector<std::vector<int> > CrystalStructure::getNeighboringAtoms(
         structural_properties::makeAtomsCluster(mUnitCellContent, centralPart, clusterAtoms, range, false);
     
     for (auto& atom : clusterAtoms)
-        cluster.push_back({ atom.atomIndex, atom.unitCellPosition[0], atom.unitCellPosition[1], atom.unitCellPosition[2] });
+    {
+        vector<int> cluster_atom{ atom.atomIndex, atom.unitCellPosition[0], atom.unitCellPosition[1], atom.unitCellPosition[2] };
+        if(find(atoms.begin(), atoms.end(), cluster_atom) == atoms.end())
+            cluster.push_back(cluster_atom);
+    }
     return cluster;
 
 
