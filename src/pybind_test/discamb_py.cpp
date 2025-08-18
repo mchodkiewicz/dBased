@@ -178,6 +178,7 @@ PYBIND11_MODULE(discamb_py, m) {
         .def(pybind11::init<const std::string&>())
         .def("getAtomNames", &CrystalStructure::getAtomNames)
         .def("getPositions", &CrystalStructure::getPositions)
+        .def("getOccupancies", &CrystalStructure::getOccupancies)
         .def("getAdps", &CrystalStructure::getAdps)
         .def("getAtomSymbols", &CrystalStructure::getAtomSymbols)
         .def("getBondedAtoms", &CrystalStructure::getBondedAtoms)

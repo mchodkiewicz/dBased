@@ -30,6 +30,7 @@ public:
     std::vector<std::string> getAtomSymbols() const;
     std::vector<std::vector<double> > getPositions() const;
     std::vector<std::vector<double> > getAdps() const;
+    std::vector<double> getOccupancies() const;
     std::vector<int> getBonds() const;
     std::vector<std::pair<int,int> > getBonds(const std::vector<std::vector<int> > &atomIds) const; 
     std::vector< std::vector<std::vector<int> > > splitIntoChemicalUnits(const std::vector<std::vector<int> >& atomIds) const;

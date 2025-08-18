@@ -177,6 +177,15 @@ const
 
 }
 
+std::vector<double> CrystalStructure::getOccupancies()
+const
+{
+    vector<double> occupancies;
+    for(auto const &atom: this->getCrystal().atoms)
+        occupancies.push_back(atom.occupancy);
+    return occupancies;
+}
+
 vector<vector<double> > CrystalStructure::getAdps()
 const
 {
