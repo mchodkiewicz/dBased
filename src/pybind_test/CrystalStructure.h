@@ -54,6 +54,7 @@ public:
     std::string getSymmetryOperationStr(const std::vector<int> &atomId) const;
     std::vector<std::vector<double> > getUnitCellVectors() const;
     int atomicNumber(int indexInUnitCell);
+    int idxInAsymmetricUnit(int indexInUnitCell) const;
     std::vector<std::vector<int> > getNeighboringAtoms(
         std::vector<std::vector<int> > const& atoms, 
         double range, 

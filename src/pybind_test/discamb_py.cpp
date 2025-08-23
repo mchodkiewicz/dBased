@@ -4,6 +4,7 @@
 #include "CrystalStructure.h"
 
 #include "har_utilities.h"
+#include "taam_utilities.h"
 
 #include "discamb/AtomTyping/CrystalAtomTypeAssigner.h"
 #include "discamb/AtomTyping/LocalCoordinateSystemCalculator.h"
@@ -168,6 +169,9 @@ PYBIND11_MODULE(discamb_py, m) {
     m.def("calc_sf", &calc_sf, "calc sf");
     m.def("discamb_add", &discamb_add, "discamb_add");
     m.def("find_default_representatives", &har_utilities::find_default_representatives);
+    m.def("find_atom_types",&taam_utilities::find_atom_types);
+    m.def("find_atom_types_for_fragments", &taam_utilities::find_atom_types_for_fragments);
+    m.def("get_atom_type_names", &taam_utilities::get_atom_type_names);
     pybind11::enum_<PackInlcudeMode>(m, "PackInlcudeMode")
         .value("ATOM", PackInlcudeMode::ATOM)
         .value("MOLECULE_ATOM", PackInlcudeMode::MOLECULE_ATOM)
@@ -179,6 +183,7 @@ PYBIND11_MODULE(discamb_py, m) {
         .def("getAtomNames", &CrystalStructure::getAtomNames)
         .def("getPositions", &CrystalStructure::getPositions)
         .def("getOccupancies", &CrystalStructure::getOccupancies)
+        .def("idxInAsymmetricUnit", &CrystalStructure::idxInAsymmetricUnit)
         .def("getAdps", &CrystalStructure::getAdps)
         .def("getAtomSymbols", &CrystalStructure::getAtomSymbols)
         .def("getBondedAtoms", &CrystalStructure::getBondedAtoms)

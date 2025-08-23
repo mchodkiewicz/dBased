@@ -259,6 +259,12 @@ std::string CrystalStructure::getAtomLabel(
     mUnitCellContent.interpreteAtomID(id, label, symmOp);
     return label;
 }
+int CrystalStructure::idxInAsymmetricUnit(
+    int indexInUnitCell)
+    const
+{
+     return mUnitCellContent.indexOfSymmetryEquivalentAtomInCrystal(indexInUnitCell);
+}
 
 std::string CrystalStructure::getSymmetryOperationStr(
     const std::vector<int>& atomId)
