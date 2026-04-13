@@ -6,6 +6,7 @@
 #include "discamb/MathUtilities/algebra3d.h"
 #include "discamb/MathUtilities/geometry3d.h"
 #include "discamb/MathUtilities/graph_algorithms.h"
+#include "discamb/StructuralProperties/ad_hoc_connectivity_rules.h"
 #include "discamb/StructuralProperties/structural_properties.h"
 
 #include <set>
@@ -96,6 +97,9 @@ CrystalStructure::CrystalStructure(
     }
 
     structural_properties::calculateConnectivity(r, z, connectivity);
+
+    ad_hoc_connectivity_rules::apply_all(r, z, connectivity);
+
     int nBonds = 0;
     for (auto& bonds : connectivity)
         nBonds += bonds.size();
@@ -107,6 +111,9 @@ CrystalStructure::CrystalStructure(
                 mBonds.push_back(i);
                 mBonds.push_back(connectivity[i][j]);
             }
+
+
+
     setMolecules();
 }
 

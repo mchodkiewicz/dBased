@@ -22,6 +22,8 @@ set(CMAKE_DEBUG_POSTFIX "d")
 set(CMAKE_MINSIZEREL_POSTFIX "s")
 set(CMAKE_RELWITHDEBINFO_POSTFIX "rd")
 
+INCLUDE_DIRECTORIES(BEFORE include external)
+
 include_directories(${DISCAMB_INCLUDE_PATH})
 include_directories(${NLOHMANN_JSON_PATH})
 include_directories(${EIGEN_PATH})
