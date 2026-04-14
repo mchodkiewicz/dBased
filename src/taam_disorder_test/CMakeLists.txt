@@ -1,0 +1,2 @@
+add_exec(taam_disorder_test taam_disorder_test.cpp)
+target_link_libraries(taam_disorder_test discamb OpenMP::OpenMP_CXX)
